@@ -5,6 +5,7 @@ import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import com.android.gustavogomesdeoliveira.natiandroidchallenge.api.RetrofitInitializer
 import com.android.gustavogomesdeoliveira.natiandroidchallenge.model.MovieResult
+import com.android.gustavogomesdeoliveira.natiandroidchallenge.util.Constants
 import com.android.gustavogomesdeoliveira.natiandroidchallenge.view.MovieListView
 import org.jetbrains.anko.*
 import retrofit2.Call
@@ -16,7 +17,7 @@ class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MovieListView().setContentView(this)
-        val call = RetrofitInitializer().movieListService().listMovies("f544317af8fe1f5582e06cbd05507bcf", 1)
+        val call = RetrofitInitializer().movieListService().listMovies(Constants().API_KEY, 1)
         call.enqueue(object: Callback<MovieResult>{
             override fun onResponse(call: Call<MovieResult>, response: Response<MovieResult>) {
                 response?.body()?.let {
@@ -26,7 +27,7 @@ class MovieListActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<MovieResult>, t: Throwable) {
-                
+
             }
         })
     }
