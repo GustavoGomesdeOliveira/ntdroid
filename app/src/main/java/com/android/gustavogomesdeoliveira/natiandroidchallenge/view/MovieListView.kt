@@ -6,11 +6,12 @@ import android.view.View
 import android.widget.Adapter
 import android.widget.LinearLayout
 import com.android.gustavogomesdeoliveira.natiandroidchallenge.activity.MovieListActivity
+import com.android.gustavogomesdeoliveira.natiandroidchallenge.adapter.MovieListAdapter
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 
 
-class MovieListView(val listAdapter: Adapter) : AnkoComponent<MovieListActivity> {
+class MovieListView(val listAdapter: MovieListAdapter) : AnkoComponent<MovieListActivity> {
 
     override fun createView(ui: AnkoContext<MovieListActivity>) = with(ui) {
         verticalLayout {
@@ -18,7 +19,7 @@ class MovieListView(val listAdapter: Adapter) : AnkoComponent<MovieListActivity>
                 val orientation = LinearLayoutManager.VERTICAL
                 layoutManager = LinearLayoutManager(context, orientation, true)
                 overScrollMode = View.OVER_SCROLL_NEVER
-                //adapter = listAdapter
+                adapter = listAdapter
                 adapter.registerAdapterDataObserver(
                         object : RecyclerView.AdapterDataObserver() {
                             override fun onItemRangeInserted(start: Int, count: Int) {
@@ -29,7 +30,6 @@ class MovieListView(val listAdapter: Adapter) : AnkoComponent<MovieListActivity>
 
                             }
                         })
-
 
             }.lparams(width = matchParent, height = wrapContent)
         }

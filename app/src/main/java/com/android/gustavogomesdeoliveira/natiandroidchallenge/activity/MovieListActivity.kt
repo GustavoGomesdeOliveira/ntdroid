@@ -3,7 +3,9 @@ package com.android.gustavogomesdeoliveira.natiandroidchallenge.activity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
+import com.android.gustavogomesdeoliveira.natiandroidchallenge.adapter.MovieListAdapter
 import com.android.gustavogomesdeoliveira.natiandroidchallenge.api.RetrofitInitializer
+import com.android.gustavogomesdeoliveira.natiandroidchallenge.model.Movie
 import com.android.gustavogomesdeoliveira.natiandroidchallenge.model.MovieResult
 import com.android.gustavogomesdeoliveira.natiandroidchallenge.util.Constants
 import com.android.gustavogomesdeoliveira.natiandroidchallenge.view.MovieListView
@@ -16,7 +18,10 @@ class MovieListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MovieListView().setContentView(this)
+        val movieList = MovieResult()
+        movieList.results = ArrayList<Movie>()
+        val movieListAdapter = MovieListAdapter(movieList)
+        MovieListView(movieListAdapter).setContentView(this)
         val call = RetrofitInitializer().movieListService().listMovies(Constants().API_KEY, 1)
         call.enqueue(object: Callback<MovieResult>{
             override fun onResponse(call: Call<MovieResult>, response: Response<MovieResult>) {
