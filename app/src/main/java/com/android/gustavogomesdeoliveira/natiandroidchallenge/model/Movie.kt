@@ -14,5 +14,5 @@ class Movie {
 
 class MovieResult {
 
-    val results: List<Movie>? = null
+    val results: ArrayList<Movie>? = null
 }

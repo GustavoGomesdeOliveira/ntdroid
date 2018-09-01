@@ -1,19 +1,37 @@
 package com.android.gustavogomesdeoliveira.natiandroidchallenge.view
 
-import com.android.gustavogomesdeoliveira.natiandroidchallenge.R
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.widget.Adapter
+import android.widget.LinearLayout
 import com.android.gustavogomesdeoliveira.natiandroidchallenge.activity.MovieListActivity
 import org.jetbrains.anko.*
+import org.jetbrains.anko.recyclerview.v7.recyclerView
 
 
-class MovieListView : AnkoComponent<MovieListActivity> {
+class MovieListView(val listAdapter: Adapter) : AnkoComponent<MovieListActivity> {
+
     override fun createView(ui: AnkoContext<MovieListActivity>) = with(ui) {
-        frameLayout {
-            val textField = editText {
-                hint = "Teste"
-            }.lparams(width = matchParent) {
-                margin = dip(12)
-                topMargin = dip(30)
-            }
+        verticalLayout {
+            val list = recyclerView {
+                val orientation = LinearLayoutManager.VERTICAL
+                layoutManager = LinearLayoutManager(context, orientation, true)
+                overScrollMode = View.OVER_SCROLL_NEVER
+                //adapter = listAdapter
+                adapter.registerAdapterDataObserver(
+                        object : RecyclerView.AdapterDataObserver() {
+                            override fun onItemRangeInserted(start: Int, count: Int) {
+
+                            }
+
+                            override fun onItemRangeRemoved(start: Int, count: Int) {
+
+                            }
+                        })
+
+
+            }.lparams(width = matchParent, height = wrapContent)
         }
     }
 }

@@ -22,7 +22,6 @@ class MovieListActivity : AppCompatActivity() {
             override fun onResponse(call: Call<MovieResult>, response: Response<MovieResult>) {
                 response?.body()?.let {
                     val movies: MovieResult = it
-                    val teste = movies.results
                 }
             }
 
